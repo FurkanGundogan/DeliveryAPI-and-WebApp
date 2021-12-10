@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DeliveryConsumer.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Customer List</h1>
+@{
+    if (TempData["CustomerAddMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["CustomerAddMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["CustomerDeletemsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["CustomerDeleteMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["CustomerDeleteErrorMsg"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["CustomerDeleteErrorMsg"]
+        </div>
+    }
+}
+
+
+<p>
+    <a asp-action='Create' asp-controller="Customer" class="btn btn-primary">Create New Customer</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    <a asp-action='Details' asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

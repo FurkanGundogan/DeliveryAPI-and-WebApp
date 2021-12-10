@@ -1,0 +1,94 @@
+﻿@model IEnumerable<DeliveryConsumer.Models.Delivery>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@{
+    if (TempData["DeliveryCreateMsg"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["DeliveryCreateMsg"]
+        </div>
+    }
+}
+
+<h1>Delivery List</h1>
+<p>
+    <a asp-action='Create' asp-controller="Delivery" class="btn btn-primary">Create New Delivery</a>
+</p>
+<div class="input-group justify-content-end">
+    <form asp-action="Filter" class="form-inline">
+        
+        <input placeholder="Filter by Status" type="search" name="status" class="form-control" />
+        <input type="submit" value="Filter" class="btn btn-primary" />
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shop.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArriveDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shop.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArriveDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action='Details' asp-controller="Delivery" asp-route-id="@item.DeliveryId" class="btn btn-primary">Show Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

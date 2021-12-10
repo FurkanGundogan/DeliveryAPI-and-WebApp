@@ -1,0 +1,91 @@
+﻿@model DeliveryConsumer.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (TempData["CustomerEditMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["CustomerEditMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["CustomerEditNCMsg"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["CustomerEditNCMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["DeliveryDeleteMsg"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["DeliveryDeleteMsg"]
+        </div>
+    }
+}
+<h1>Customer Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action='Edit' asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-info">Edit Customer</a>
+    <a asp-action='Delete' asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-danger">Delete Customer</a>
+</div>
+<h3>Customer Deliveries</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Delivery Id</th>
+            <th scope="col">Shop</th>
+            <th scope="col">Arrive Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Delivery Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Deliveries)
+        {
+            <tr>
+                <th>@item.DeliveryId</th>
+                <td>@item.ShopId</td>
+                <td>@item.ArriveDate</td>
+                <td>@item.Status</td>
+                <td><a asp-action='Details' asp-controller="Delivery" asp-route-id="@item.DeliveryId" class="btn btn-primary">Show Details</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>

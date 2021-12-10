@@ -1,0 +1,75 @@
+﻿@model DeliveryConsumer.Models.Delivery
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4>Edit Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:none">
+                <label asp-for="DeliveryId" class="control-label"></label>
+                <input asp-for="DeliveryId" class="form-control" />
+                <span asp-validation-for="DeliveryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Customer</label>
+                <br />
+                <select asp-for="CustomerId" class="custom-select">
+                    @foreach (var item in ViewBag.customers)
+                    {
+                        if (item.CustomerId == Model.CustomerId)
+                        {
+                            <option value="@item.CustomerId" selected>@item.FirstName @item.LastName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.CustomerId">@item.FirstName @item.LastName</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Shop</label>
+                <br />
+                <select asp-for="ShopId" class="custom-select">
+                    @foreach (var item in ViewBag.shops)
+                    {
+                        if (item.ShopId == Model.ShopId)
+                        {
+                            <option value="@item.ShopId" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.ShopId">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArriveDate" class="control-label"></label>
+                <input asp-for="ArriveDate" class="form-control" required />
+                <span asp-validation-for="ArriveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" required />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DeliveryConsumer.Models.Shop>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Shop List</h3>
+
+@{
+    if (TempData["ShopEditNCMsg"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["ShopEditNCMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["ShopEditMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["ShopEditMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["ShopCreateMsg"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["ShopCreateMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["ShopDeleteMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["ShopDeleteMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["ShopDeleteErrorMsg"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ShopDeleteErrorMsg"]
+        </div>
+    }
+}
+
+
+
+
+<p>
+    <a asp-action='Create' asp-controller="Shop" class="btn btn-primary">Create New Shop</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action='Edit' asp-controller="Shop" asp-route-id="@item.ShopId" class="btn btn-primary">Edit</a>
+                    <a asp-action='Delete' asp-controller="Shop" asp-route-id="@item.ShopId" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

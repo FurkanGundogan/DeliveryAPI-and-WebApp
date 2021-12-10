@@ -1,0 +1,145 @@
+﻿@model DeliveryConsumer.Models.Delivery
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    TempData["delivery_id"] = Model.DeliveryId;
+
+}
+@{
+    if (TempData["DeliveryEditMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["DeliveryEditMsg"]
+        </div>
+    }
+}
+
+@{
+    if (TempData["DeliveryEditNCMsg"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["DeliveryEditNCMsg"]
+        </div>
+    }
+}
+<div>
+    <h4>Delivery Details</h4>
+    <div><a asp-action='Details' asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-primary">Customer -></a></div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeliveryId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.FirstName)
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shop.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shop.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ArriveDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ArriveDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action='Edit' asp-controller="Delivery" asp-route-id="@Model.DeliveryId" class="btn btn-info">Edit Delivery</a>
+    <a asp-action='Delete' asp-controller="Delivery" asp-route-id="@Model.DeliveryId" class="btn btn-danger">Delete Delivery</a>
+</div>
+
+<div>
+    <h4>Delivery's Products</h4>
+@{
+    if (TempData["DeliveryAddProductMsg"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["DeliveryAddProductMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["DeliveryDeleteProductMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["DeliveryDeleteProductMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["DeliveryEditProductMsg"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["DeliveryEditProductMsg"]
+        </div>
+    }
+}
+@{
+    if (TempData["DeliveryEditProductNCMsg"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["DeliveryEditProductNCMsg"]
+        </div>
+    }
+}
+    <br />
+    <a asp-action="AddProduct" asp-controller="Delivery" asp-route-id="@Model.DeliveryId" class="btn btn-primary">Add New Product</a>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var totalAmount = 0;
+
+            foreach (var item in Model.Products)
+            {
+                totalAmount += item.Price;
+                <tr>
+                    <th>@item.ProductId</th>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td><a asp-action="EditProduct" asp-controller="Delivery" asp-route-id="@item.ProductId" class="btn btn-info">Edit Product</a></td>
+                    <td><a asp-action="DeleteProduct" asp-controller="Delivery" asp-route-id="@item.ProductId" class="btn btn-danger">Delete Product</a></td>
+                </tr>
+
+
+            }
+            <tr><th>Total:</th><td>@Model.Products.Count items</td><td> @totalAmount $</td></tr>
+        }
+
+
+    </tbody>
+</table>
